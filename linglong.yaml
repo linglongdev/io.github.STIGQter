@@ -1,0 +1,48 @@
+version: "1"
+
+package:
+  id: io.github.STIGQter
+  name: STIGQter
+  version: 0.1.1.1
+  kind: app
+  description: |
+    Open Source STIG Viewer Reimplementation
+
+command:
+  - /opt/apps/io.github.STIGQter/files/bin/STIGQter
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/squinky86/STIGQter.git
+    version: master
+    commit: ffc29fe6ce500aea1562b4152c6acf586096e96e
+  - kind: git
+    url: https://github.com/nih-at/libzip.git
+    commit: 6e2a6bb8780f86d3a766b4224b2860c81ee6d89b
+  - kind: git
+    url: https://github.com/jmcnamara/libxlsxwriter.git
+    commit: f52e8167178e7d013a74211068c5fad586ffc504
+build: |
+  cd /project/linglong/sources/libzip.git
+  mkdir build
+  cd build
+  cmake .. \
+        -DCMAKE_INSTALL_PREFIX=${PREFIX}
+  cmake --build . --target install
+
+
+  cd /project/linglong/sources/libxlsxwriter.git
+  mkdir build
+  cd build
+  cmake .. \
+        -DCMAKE_INSTALL_PREFIX=${PREFIX}
+  cmake --build . --target install
+
+  cd /project/linglong/sources/STIGQter.git
+  git apply ../../../0001-install.patch
+  qmake -makefile PREFIX=${PREFIX} LIB_INSTALL_DIR=${PREFIX}/lib/${TRIPLET}
+  make
+  make install
