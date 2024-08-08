@@ -1,0 +1,33 @@
+From 4d67af8650df6fa55581cdb14084323b6d781dab Mon Sep 17 00:00:00 2001
+From: wjyrich <1071633242@qq.com>
+Date: Wed, 7 Aug 2024 19:34:46 +0800
+Subject: [PATCH] install
+
+---
+ STIGQter.pro | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/STIGQter.pro b/STIGQter.pro
+index 2ab8527..72e2977 100644
+--- a/STIGQter.pro
++++ b/STIGQter.pro
+@@ -40,6 +40,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
+ #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+ 
+ CONFIG += c++1z
++INCLUDEPATH += $${PREFIX}/include
+ 
+ SOURCES += \
+     src/asset.cpp \
+@@ -125,7 +126,7 @@ else: unix:!android: target.path = $${PREFIX}/bin
+ 
+ LIBS += -lzip -lxlsxwriter -lz
+ 
+-INCLUDEPATH = src
++INCLUDEPATH += src
+ 
+ RC_FILE = STIGQter.rc
+ 
+-- 
+2.43.4
+
